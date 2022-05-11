@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>关于vscode配置c++环境</title>
+      <link href="/2022/05/11/%E5%85%B3%E4%BA%8Evscode%E9%85%8D%E7%BD%AEc-%E7%8E%AF%E5%A2%83/"/>
+      <url>/2022/05/11/%E5%85%B3%E4%BA%8Evscode%E9%85%8D%E7%BD%AEc-%E7%8E%AF%E5%A2%83/</url>
+      
+        <content type="html"><![CDATA[<h3 id="安装-C-x2F-C-编译器"><a href="#安装-C-x2F-C-编译器" class="headerlink" title="安装 C&#x2F;C++ 编译器"></a>安装 C&#x2F;C++ 编译器</h3><ol><li><p>下载 Mingw-w64 GCC</p><blockquote><p>在 sourceforge 网站下载  Mingw-w64 GCC (直接搜索)</p><blockquote><p>网址: <a href="https://sourceforge.net/projects/mingw-w64/files/">https://sourceforge.net/projects/mingw-w64/files/</a></p></blockquote></blockquote></li><li><p>解压到指定文件夹 (好想的)</p></li><li><p>添加到环境变量PATH中 </p></li><li><p>测试 <code> gcc -v</code></p></li></ol><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><ol><li>C&#x2F;C++ Extension Pack</li><li>Code Runner</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> vscode </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vscode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Linear_List</title>
       <link href="/2022/05/06/Linear-List/"/>
       <url>/2022/05/06/Linear-List/</url>
