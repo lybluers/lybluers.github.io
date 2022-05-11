@@ -3,10 +3,10 @@
  */
 
 
-// 设置页脚博主会动的心
-$(document).ready(function(e){
-    $('.copyright').html('©2020 <i style="color:#FF6A6A;animation: announ_animation 0.8s linear infinite;" class="fa fa-heartbeat"></i> Lete乐特');
-})
+// // 设置页脚博主会动的心
+// $(document).ready(function(e){
+//     $('.copyright').html('©2020 <i style="color:#FF6A6A;animation: announ_animation 0.8s linear infinite;" class="fa fa-heartbeat"></i> Lete乐特');
+// })
 
 // 移除页脚样式
 var app = document.getElementById('footer');
@@ -59,4 +59,6 @@ function browserRedirect() {
         img.onload = function () { startSakura(); }
         function stopp() { if (staticx) { var child = document.getElementById("canvas_sakura"); child.parentNode.removeChild(child); window.cancelAnimationFrame(stop); staticx = false; } else { startSakura(); } }
     }
-}
+————————————————
+版权声明：本文为CSDN博主「Lete乐特」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/Lott0419/article/details/106688492
