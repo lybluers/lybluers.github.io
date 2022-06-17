@@ -29,32 +29,6 @@
     
     
     <entry>
-      <title>test01</title>
-      <link href="/2022/06/10/test01/"/>
-      <url>/2022/06/10/test01/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title></title>
-      <link href="/2022/06/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%91%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"/>
-      <url>/2022/06/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%91%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
-      
-        <content type="html"><![CDATA[<p>二叉树的非递归算法</p><blockquote><p>中序遍历 </p></blockquote><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">InOrder</span><span class="params">(Bitree T)</span></span>&#123;</span><br><span class="line">  <span class="built_in">initStruct</span>(S);</span><br><span class="line">  BiTree p = T;</span><br><span class="line">  <span class="keyword">while</span>(p||!<span class="built_in">isEmpty</span>(S))&#123;</span><br><span class="line">    <span class="keyword">if</span>(p)&#123;</span><br><span class="line">      <span class="built_in">Push</span>(S,p);</span><br><span class="line">      p = p-&gt;lchild;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      <span class="built_in">Pop</span>(S,p);</span><br><span class="line">      <span class="built_in">visit</span>(p);</span><br><span class="line">      p = p-&gt;rchild;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>先序遍历</p></blockquote><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">PreOrder</span><span class="params">(Bitree T)</span></span>&#123;</span><br><span class="line">  <span class="built_in">initStruct</span>(S);</span><br><span class="line">  Bitree p = T;</span><br><span class="line">  <span class="keyword">while</span>(p||!<span class="built_in">isEmpty</span>(S))&#123;</span><br><span class="line">    <span class="keyword">if</span>(p)&#123;</span><br><span class="line">      <span class="built_in">visit</span>(p);</span><br><span class="line">      <span class="built_in">Push</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>数据结构_栈的相关操作</title>
       <link href="/2022/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/"/>
       <url>/2022/05/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88%E7%9A%84%E7%9B%B8%E5%85%B3%E6%93%8D%E4%BD%9C/</url>
