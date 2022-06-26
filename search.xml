@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>linux_operation</title>
+      <link href="/2022/06/26/linux-operation/"/>
+      <url>/2022/06/26/linux-operation/</url>
+      
+        <content type="html"><![CDATA[<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><h4 id="创建文件"><a href="#创建文件" class="headerlink" title="创建文件"></a>创建文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch xxx</span><br></pre></td></tr></table></figure><h4 id="移动-amp-amp-复制文件"><a href="#移动-amp-amp-复制文件" class="headerlink" title="移动&amp;&amp;复制文件"></a>移动&amp;&amp;复制文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 复制</span><br><span class="line">cp 目标文件夹\目标文件（或者为*） 文件夹\xxx</span><br><span class="line">// 移动</span><br><span class="line">mv 目标文件夹\目标文件（或者为*） 文件夹\xxx</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Software activation</title>
       <link href="/2022/06/16/Software-activation/"/>
       <url>/2022/06/16/Software-activation/</url>
