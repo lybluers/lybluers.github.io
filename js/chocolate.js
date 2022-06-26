@@ -13,8 +13,14 @@ if (location.href.indexOf("link") !== -1) {
     }
 }
 
-$(function() {
+/*
+ * @Author: tzy1997
+ * @Date: 2020-12-15 20:55:25
+ * @LastEditors: tzy1997
+ * @LastEditTime: 2021-01-12 19:02:25
+ */
 
+$(function() {
     // 气泡
     function bubble() {
         $('#page-header').circleMagic({
@@ -63,4 +69,3 @@ $(function() {
     // 调用气泡方法
     bubble();
 })
-
