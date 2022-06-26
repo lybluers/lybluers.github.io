@@ -114,7 +114,7 @@
       <link href="/2022/05/04/test/"/>
       <url>/2022/05/04/test/</url>
       
-        <content type="html"><![CDATA[<h3 id="有关图片无法加载问题"><a href="#有关图片无法加载问题" class="headerlink" title="有关图片无法加载问题"></a>有关图片无法加载问题</h3><ol><li>安装依赖</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure><ol start="2"><li>设置图片文件夹<br>把_config.yml中的post_asset_folder设为true，这个配置的意思是每次new post一个博客，会增加一个和博客同名的文件夹。</li></ol>]]></content>
+        <content type="html"><![CDATA[<h3 id="有关图片无法加载问题"><a href="#有关图片无法加载问题" class="headerlink" title="有关图片无法加载问题"></a>有关图片无法加载问题</h3><ol><li>安装依赖</li></ol><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install https://github.com/CodeFalling/hexo-asset-image --save</span><br></pre></td></tr></table></figure><ol start="2"><li>设置图片文件夹<br>把_config.yml中的post_asset_folder设为true，这个配置的意思是每次new post一个博客，会增加一个和博客同名的文件夹。</li></ol><h3 id="修改文档默认模板"><a href="#修改文档默认模板" class="headerlink" title="修改文档默认模板"></a>修改文档默认模板</h3><blockquote><p>博客位置 &gt; scaffolds &gt; post</p></blockquote>]]></content>
       
       
       <categories>
