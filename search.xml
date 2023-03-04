@@ -4,11 +4,38 @@
   
     
     <entry>
+      <title>JWT</title>
+      <link href="/2023/03/04/JWT/"/>
+      <url>/2023/03/04/JWT/</url>
+      
+        <content type="html"><![CDATA[<h2 id="JWT简介"><a href="#JWT简介" class="headerlink" title="JWT简介"></a>JWT简介</h2><p>1.什么是JWT<br><strong>在介绍JWT之前，我们先来回顾一下利用token进行用户身份验证的流程：</strong></p><ol><li><p>客户端使用用户名和密码请求登录</p></li><li><p>服务端收到请求，验证用户名和密码</p></li><li><p>验证成功后，服务端会签发一个token，再把这个token返回给客户端</p></li><li><p>客户端收到token后可以把它存储起来，比如放到cookie中</p></li><li><p>客户端每次向服务端请求资源时需要携带服务端签发的token，可以在cookie或者header中携带</p></li><li><p>服务端收到请求，然后去验证客户端请求里面带着的token，如果验证成功，就向客户端返回请求数据</p></li></ol><p><strong>这种基于token的认证方式相比传统的session认证方式更节约服务器资源，并且对移动端和分布式更加友好。其优点如下：</strong></p><ul><li><p><code>支持跨域访问</code>：cookie是无法跨域的，而token由于没有用到cookie(前提是将token放到请求头中)，所以跨域后不会存在信息丢失问题</p></li><li><p><code>无状态</code>：token机制在服务端不需要存储session信息，因为token自身包含了所有登录用户的信息，所以可以减轻服务端压力</p></li><li><p><code>更适用CDN</code>：可以通过内容分发网络请求服务端的所有资料</p></li><li><p><code>更适用于移动端</code>：当客户端是非浏览器平台时，cookie是不被支持的，此时采用token认证方式会简单很多</p></li><li><p><code>无需考虑CSRF</code>：由于不再依赖cookie，所以采用token认证方式不会发生CSRF，所以也就无需考虑CSRF的防御</p></li></ul><p>而JWT就是上述流程当中token的一种具体实现方式，其全称是<code>JSON Web Token</code>，官网地址：<a href="https://jwt.io/">https://jwt.io/</a></p><p><strong>通俗地说，JWT的本质就是一个<code>字符串</code>，它是将用户信息保存到一个Json字符串中，然后进行编码后得到一个JWT token，并且这个JWT token带有签名信息，接收后可以校验是否被篡改，所以可以用于在各方之间安全地将信息作为Json对象传输。JWT的认证流程如下：</strong></p><ol><li><p>首先，前端通过Web表单将自己的用户名和密码发送到后端的接口，这个过程一般是一个POST请求。建议的方式是通过SSL加密的传输(HTTPS)，从而避免敏感信息被嗅探</p></li><li><p>后端核对用户名和密码成功后，将包含用户信息的数据作为JWT的Payload，将其与JWT Header分别进行Base64编码拼接后签名，形成一个JWT Token，形成的JWT Token就是一个如同lll.zzz.xxx的字符串</p></li><li><p>后端将JWT Token字符串作为登录成功的结果返回给前端。前端可以将返回的结果保存在浏览器中，退出登录时删除保存的JWT Token即可</p></li><li><p>前端在每次请求时将JWT Token放入HTTP请求头中的Authorization属性中(解决XSS和XSRF问题)</p></li><li><p>后端检查前端传过来的JWT Token，验证其有效性，比如检查签名是否正确、是否过期、token的接收方是否是自己等等</p></li><li><p>验证通过后，后端解析出JWT Token中包含的用户信息，进行其他逻辑操作(一般是根据用户信息得到权限等)，返回结果</p></li></ol><p><img src="/2023/03/04/JWT/900b3e81f832b2f08c2e8aabb540536a.png" alt="img"></p><h2 id="JWT结构"><a href="#JWT结构" class="headerlink" title="JWT结构"></a>JWT结构</h2><h3 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h3><p><strong>JWT头</strong>是一个描述JWT元数据的JSON对象，alg属性表示签名使用的算法，默认为HMAC SHA256（写为HS256）；typ属性表示令牌的类型，JWT令牌统一写为JWT。最后，使用Base64 URL算法将上述JSON对象转换为字符串保存</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;alg&quot;: &quot;HS256&quot;,</span><br><span class="line">  &quot;typ&quot;: &quot;JWT&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload"></a>Payload</h3><p><strong>有效载荷</strong>部分，是JWT的主体内容部分，也是一个<strong>JSON对象</strong>，包含需要传递的数据。 JWT指定七个默认字段供选择</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iss：发行人</span><br><span class="line">exp：到期时间</span><br><span class="line">sub：主题</span><br><span class="line">aud：用户</span><br><span class="line">nbf：在此之前不可用</span><br><span class="line">iat：发布时间</span><br><span class="line">jti：JWT ID用于标识该JWT</span><br></pre></td></tr></table></figure><p>这些预定义的字段并不要求强制使用。除以上默认字段外，我们还可以自定义私有字段，<strong>一般会把包含用户信息的数据放到payload中</strong>，如下例：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;,</span><br><span class="line">  &quot;name&quot;: &quot;Helen&quot;,</span><br><span class="line">  &quot;admin&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>请注意，<strong>默认情况下JWT是未加密的，因为只是采用base64算法，拿到JWT字符串后可以转换回原本的JSON数据，任何人都可以解读其内容，因此不要构建隐私信息字段，比如用户的密码一定不能保存到JWT中</strong>，以防止信息泄露。<strong>JWT只是适合在网络中传输一些非敏感的信息</strong></p></blockquote><h3 id="Signature"><a href="#Signature" class="headerlink" title="Signature"></a>Signature</h3><p><code>签名哈希</code>部分是对上面两部分数据签名，需要使用base64编码后的header和payload数据，通过指定的算法生成哈希，以<code>确保数据不会被篡改</code>。首先，需要指定一个密钥（secret）。该密码仅仅为保存在服务器中，并且不能向用户公开。然后，使用header中指定的签名算法（默认情况下为HMAC SHA256）根据以下公式生成签名</p><blockquote><p>HMACSHA256(base64UrlEncode(header) + “.” + base64UrlEncode(payload), secret)</p></blockquote><blockquote><p>注意JWT每部分的作用，在服务端接收到客户端发送过来的JWT token之后：</p><ul><li><p>header和payload可以直接利用base64解码出原文，从header中获取哈希签名的算法，从payload中获取有效数据</p></li><li><p>signature由于使用了不可逆的加密算法，无法解码出原文，它的作用是校验token有没有被篡改。服务端获取header中的加密算法之后，利用该算法加上secretKey对header、payload进行加密，比对加密后的数据和客户端发送过来的是否一致。注意secretKey只能保存在服务端，而且对于不同的加密算法其含义有所不同，一般对于MD5类型的摘要加密算法，secretKey实际上代表的是盐值</p></li></ul></blockquote><h2 id="JWT的种类"><a href="#JWT的种类" class="headerlink" title="JWT的种类"></a>JWT的种类</h2><p>其实JWT(JSON Web Token)指的是一种规范，这种规范允许我们使用JWT在两个组织之间传递安全可靠的信息，JWT的具体实现可以分为以下几种：</p><ul><li><p>nonsecure JWT：未经过签名，不安全的JWT</p></li><li><p>JWS：经过签名的JWT</p></li><li><p>JWE：payload部分经过加密的JWT</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> java </tag>
+            
+            <tag> JWT </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>微服务</title>
       <link href="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/"/>
       <url>/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227083723855.png" alt="image-20230227083723855"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227081924186.png" alt="image-20230227081924186"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227084236588.png" alt="image-20230227084236588"></p><h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="版本兼容"><a href="#版本兼容" class="headerlink" title="版本兼容"></a>版本兼容</h3><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227084628056.png" alt="image-20230227084628056"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227092509640.png" alt="image-20230227092509640"></p><h3 id="根据订单id查询订单功能"><a href="#根据订单id查询订单功能" class="headerlink" title="根据订单id查询订单功能"></a>根据订单id查询订单功能</h3><blockquote><p>订单查询需要根据用户id查询用户的信息，因此需要</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<h1 id="微服务"><a href="#微服务" class="headerlink" title="微服务"></a>微服务</h1><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227083723855.png" alt="image-20230227083723855"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227081924186.png" alt="image-20230227081924186"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227084236588.png" alt="image-20230227084236588"></p><h2 id="SpringCloud"><a href="#SpringCloud" class="headerlink" title="SpringCloud"></a>SpringCloud</h2><h3 id="版本兼容"><a href="#版本兼容" class="headerlink" title="版本兼容"></a>版本兼容</h3><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227084628056.png" alt="image-20230227084628056"></p><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230227092509640.png" alt="image-20230227092509640"></p><h2 id="Spring-Cloud-Eureka"><a href="#Spring-Cloud-Eureka" class="headerlink" title="Spring Cloud Eureka"></a>Spring Cloud Eureka</h2><blockquote><p>注册发现中心，是一个服务注册与发现的组件，默认端口8761 </p></blockquote><h3 id="搭建注册中心"><a href="#搭建注册中心" class="headerlink" title="搭建注册中心"></a>搭建注册中心</h3><p><img src="/2023/02/26/%E5%BE%AE%E6%9C%8D%E5%8A%A1/image-20230228215252687.png" alt="image-20230228215252687"></p><h3 id="Spring-Cloud-Eureka-和-Zookeeper-的区别"><a href="#Spring-Cloud-Eureka-和-Zookeeper-的区别" class="headerlink" title="Spring Cloud Eureka 和 Zookeeper 的区别"></a>Spring Cloud Eureka 和 Zookeeper 的区别</h3><h4 id="什么是CAP原则（面试）"><a href="#什么是CAP原则（面试）" class="headerlink" title="什么是CAP原则（面试）"></a>什么是CAP原则（面试）</h4><blockquote><p> cap原则又称cap定理，指的是在一个分布式系统中，一致性、可用性、分区容错性（必选，不可避免），这三个要素只能同时实现两点，不可能三者兼顾。</p><ul><li>一致性(C)：多个机器中的数据是一致的</li><li>可用性(A)：当有一个节点挂掉了，整个集群可以继续对外提供服务</li><li>分区容错性(P)：由于机房或者分区等原因导致各个机器中的数据短暂的不一致.</li></ul><p>AP：数据可能是不一致的<br>CP：数据时一致的但是如果有个节点挂了，整个服务在几分钟之内不能提供服务</p><p>Zookeeper遵循CP原则，eureka注重AP高可用</p></blockquote><p>为什么zookeeper不适合做注册中心</p>]]></content>
       
       
       
@@ -416,9 +443,9 @@
       
         <tags>
             
-            <tag> web框架 </tag>
-            
             <tag> java </tag>
+            
+            <tag> web框架 </tag>
             
         </tags>
       
@@ -443,9 +470,9 @@
       
         <tags>
             
-            <tag> web框架 </tag>
-            
             <tag> java </tag>
+            
+            <tag> web框架 </tag>
             
         </tags>
       
