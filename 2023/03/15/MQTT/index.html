@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MQTT | Ly's Blog</title><meta name="author" content="LyBlue"><meta name="copyright" content="LyBlue"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MQTT 参考文档 https:&#x2F;&#x2F;mcxiaoke.gitbooks.io&#x2F;mqtt-cn&#x2F;content&#x2F;  MQTT是一个基于客户端-服务器的消息发布&#x2F;订阅传输协议。	 MQTT 与 HTTP 一样，MQTT 运行在传输控制协议&#x2F;互联网协议 (TCP&#x2F;IP) 堆栈之上。 Qos 服务质量是 MQTT 的一个重要特性。当我们使用 TCP&#x2F;IP 时，连接已">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MQTT">
+<meta property="og:url" content="http://lybluers.github.io/2023/03/15/MQTT/index.html">
+<meta property="og:site_name" content="Ly&#39;s Blog">
+<meta property="og:description" content="MQTT 参考文档 https:&#x2F;&#x2F;mcxiaoke.gitbooks.io&#x2F;mqtt-cn&#x2F;content&#x2F;  MQTT是一个基于客户端-服务器的消息发布&#x2F;订阅传输协议。	 MQTT 与 HTTP 一样，MQTT 运行在传输控制协议&#x2F;互联网协议 (TCP&#x2F;IP) 堆栈之上。 Qos 服务质量是 MQTT 的一个重要特性。当我们使用 TCP&#x2F;IP 时，连接已">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg">
+<meta property="article:published_time" content="2023-03-15T08:18:27.000Z">
+<meta property="article:modified_time" content="2023-03-17T03:15:43.369Z">
+<meta property="article:author" content="LyBlue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://lybluers.github.io/2023/03/15/MQTT/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MQTT',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-17 11:15:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.1.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/93122188?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Ly's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MQTT</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-15T08:18:27.000Z" title="发表于 2023-03-15 16:18:27">2023-03-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-17T03:15:43.369Z" title="更新于 2023-03-17 11:15:43">2023-03-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MQTT"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h1><blockquote>
+<p>参考文档 <a target="_blank" rel="noopener" href="https://mcxiaoke.gitbooks.io/mqtt-cn/content/">https://mcxiaoke.gitbooks.io/mqtt-cn/content/</a></p>
+</blockquote>
+<p>MQTT是一个基于<strong>客户端-服务器</strong>的消息发布&#x2F;订阅传输协议。	</p>
+<p>MQTT 与 HTTP 一样，MQTT 运行在传输控制协议&#x2F;互联网协议 (TCP&#x2F;IP) 堆栈之上。</p>
+<h2 id="Qos"><a href="#Qos" class="headerlink" title="Qos"></a>Qos</h2><blockquote>
+<p><code>服务质量</code>是 MQTT 的一个重要特性。当我们使用 TCP&#x2F;IP 时，连接已经在一定程度上受到保护。但是在无线网络中，中断和干扰很频繁，MQTT 在这里帮助避免信息丢失及其服务质量水平。这些级别在发布时使用。如果客户端发布到 MQTT 服务器，则客户端将是发送者，MQTT 服务器将是接收者。当MQTT服务器向客户端发布消息时，服务器是发送者，客户端是接收者。</p>
+</blockquote>
+<p><strong>QoS  0</strong></p>
+<p>这一级别会发生消息丢失或重复，消息发布依赖于底层TCP&#x2F;IP网络。即：&lt;&#x3D;1</p>
+<p><img src="/2023/03/15/MQTT/2adfda1f415a73ee5ad4c18fcce3f129.png" alt="img"></p>
+<p><strong>QoS  1</strong></p>
+<p>QoS 1 承诺消息将至少传送一次给订阅者。</p>
+<p><img src="/2023/03/15/MQTT/93542136b9523c414b6b91588e4ee2e4.png" alt="img"></p>
+<p><strong>QoS  2</strong></p>
+<p>使用 QoS 2，我们保证消息仅传送到目的地一次。为此，带有唯一消息 ID 的消息会存储两次，首先来自发送者，然后是接收者。QoS 级别 2 在网络中具有最高的开销，因为在发送方和接收方之间需要两个流。</p>
+<p><img src="/2023/03/15/MQTT/bfe330004cad319e7808479fad5fbaec.png" alt="img"></p>
+<h2 id="MQTT-数据包结构"><a href="#MQTT-数据包结构" class="headerlink" title="MQTT 数据包结构"></a>MQTT 数据包结构</h2><p>固定头（Fixed header），存在于所有MQTT数据包中，表示数据包类型及数据包的分组类标识；</p>
+<p>可变头（Variable header），存在于部分MQTT数据包中，数据包类型决定了可变头是否存在及其具体内容；</p>
+<p>消息体（Payload），存在于部分MQTT数据包中，表示客户端收到的具体内容；</p>
+<p><img src="/2023/03/15/MQTT/bead03d52096eca7366e94c5dc43ca29.png" alt="img"></p>
+<h3 id="MQTT固定头-x2F-Fixed-header"><a href="#MQTT固定头-x2F-Fixed-header" class="headerlink" title="MQTT固定头 &#x2F; Fixed header"></a>MQTT固定头 &#x2F; Fixed header</h3><p>消息类型（4位的无符号值）：</p>
+<p>类型：</p>
+<p><img src="/2023/03/15/MQTT/image-20230315163402653.png" alt="image-20230315163402653"></p>
+<p>标识位</p>
+<p><img src="/2023/03/15/MQTT/image-20230315163726878.png" alt="image-20230315163726878"></p>
+<p>DUP：发布消息的副本。用来在保证消息的可靠传输，如果设置为 1，则在下面的变长中增加MessageId，并且需要回复确认，以保证消息传输完成，但不能用于检测消息重复发送。</p>
+<p>QoS发布消息的服务质量（前面已经做过介绍），即：保证消息传递的次数</p>
+<p>00：最多一次，即：&lt;&#x3D;1</p>
+<p>01：至少一次，即：&gt;&#x3D;1</p>
+<p>10：一次，即：&#x3D;1</p>
+<p>11：预留</p>
+<p>RETAIN：发布保留标识，表示服务器要保留这次推送的信息，如果有新的订阅者出现，就把这消息推送给它，如果设有那么推送至当前订阅者后释放。</p>
+<p>剩余长度（Remaining Length）</p>
+<p>位置：byte 1。</p>
+<p>固定头的第二字节用来保存变长头部和消息体的总大小的，但不是直接保存的。这一字节是可以扩展，其保存机制，前7位用于保存长度，后一部用做标识。当最后一位为 1时，表示长度不足，需要使用二个字节继续保存。例如：计算出后面的大小为0</p>
+<h3 id="MQTT可变头-x2F-Variable-header"><a href="#MQTT可变头-x2F-Variable-header" class="headerlink" title="MQTT可变头 &#x2F; Variable header"></a><code>MQTT</code>可变头 &#x2F; Variable header</h3><p><code>MQTT</code>数据包中包含一个可变头，它驻位于固定的头和负载之间。可变头的内容因数据包类型而不同，较常的应用是做为包的标识：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bit</th>
+<th align="left">7  — 0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">byte 1</td>
+<td align="left">包标签符（MSB）</td>
+</tr>
+<tr>
+<td align="left">byte 2…</td>
+<td align="left">包标签符（LSB）</td>
+</tr>
+</tbody></table>
+<h4 id="连接返回码-Connect-Return-code"><a href="#连接返回码-Connect-Return-code" class="headerlink" title="连接返回码 Connect Return code"></a>连接返回码 Connect Return code</h4><p><strong>位置：</strong>可变报头的第2个字节。</p>
+<p>连接返回码字段使用一个字节的无符号值，在 <a target="_blank" rel="noopener" href="https://mcxiaoke.gitbooks.io/mqtt-cn/content/mqtt/0302-CONNACK.html#_%E8%A1%A8%E6%A0%BC_3.1_%E2%80%93%E8%BF%9E%E6%8E%A5%E8%BF%94%E5%9B%9E%E7%A0%81%E7%9A%84%E5%80%BC">表格 3.1 –连接返回码的值</a> 中列出。如果服务端收到一个合法的CONNECT报文，但出于某些原因无法处理它，服务端应该尝试发送一个包含非零返回码（表格中的某一个）的CONNACK报文。如果服务端发送了一个包含非零返回码的CONNACK报文，那么它<strong>必须</strong>关闭网络连接 [MQTT-3.2.2-5].。</p>
+<h5 id="表格-3-1-–连接返回码的值"><a href="#表格-3-1-–连接返回码的值" class="headerlink" title="表格 3.1 –连接返回码的值"></a>表格 3.1 –连接返回码的值</h5><table>
+<thead>
+<tr>
+<th><strong>值</strong></th>
+<th><strong>返回码响应</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0x00连接已接受</td>
+<td>连接已被服务端接受</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0x01连接已拒绝，不支持的协议版本</td>
+<td>服务端不支持客户端请求的MQTT协议级别</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0x02连接已拒绝，不合格的客户端标识符</td>
+<td>客户端标识符是正确的UTF-8编码，但服务端不允许使用</td>
+</tr>
+<tr>
+<td>3</td>
+<td>0x03连接已拒绝，服务端不可用</td>
+<td>网络连接已建立，但MQTT服务不可用</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0x04连接已拒绝，无效的用户名或密码</td>
+<td>用户名或密码的数据格式无效</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0x05连接已拒绝，未授权</td>
+<td>客户端未被授权连接到此服务器</td>
+</tr>
+<tr>
+<td>6-255</td>
+<td></td>
+<td>保留</td>
+</tr>
+</tbody></table>
+<p>如果认为上表中的所有连接返回码都不太合适，那么服务端<strong>必须</strong>关闭网络连接，不需要发送CONNACK报文 [MQTT-3.2.2-6]。</p>
+<h4 id="连接标志-Connect-Flags"><a href="#连接标志-Connect-Flags" class="headerlink" title="连接标志 Connect Flags"></a>连接标志 Connect Flags</h4><p>连接标志字节包含一些用于指定MQTT连接行为的参数。它还指出有效载荷中的字段是否存在。</p>
+<h4 id="遗嘱标志-Will-Flag"><a href="#遗嘱标志-Will-Flag" class="headerlink" title="遗嘱标志 Will Flag"></a>遗嘱标志 Will Flag</h4><p><strong>位置：</strong>连接标志的第2位。</p>
+<p>遗嘱标志（Will Flag）被设置为1，表示如果连接请求被接受了，遗嘱（Will Message）消息<strong>必须</strong>被存储在服务端并且与这个网络连接关联。之后网络连接关闭时，服务端<strong>必须</strong>发布这个遗嘱消息，除非服务端收到DISCONNECT报文时删除了这个遗嘱消息 [MQTT-3.1.2-8] 。</p>
+<p>遗嘱消息发布的条件，包括但不限于：</p>
+<ul>
+<li>服务端检测到了一个I&#x2F;O错误或者网络故障。</li>
+<li>客户端在保持连接（Keep Alive）的时间内未能通讯。</li>
+<li>客户端没有先发送DISCONNECT报文直接关闭了网络连接。</li>
+<li>由于协议错误服务端关闭了网络连接。</li>
+</ul>
+<p>如果遗嘱标志被设置为1，连接标志中的Will QoS和Will Retain字段会被服务端用到，同时有效载荷中<strong>必须</strong>包含Will Topic和Will Message字段 [MQTT-3.1.2-9]。</p>
+<p>一旦被发布或者服务端收到了客户端发送的DISCONNECT报文，遗嘱消息就<strong>必须</strong>从存储的会话状态中移除 [MQTT-3.1.2-10]。</p>
+<p>如果遗嘱标志被设置为0，连接标志中的Will QoS和Will Retain字段<strong>必须</strong>设置为0，并且有效载荷中<strong>不能</strong>包含Will Topic和Will Message字段 [MQTT-3.1.2-11]。</p>
+<p>如果遗嘱标志被设置为0，网络连接断开时，<strong>不能</strong>发送遗嘱消息 [MQTT-3.1.2-12]。</p>
+<p>服务端应该迅速发布遗嘱消息。在关机或故障的情况下，服务端可以推迟遗嘱消息的发布直到之后的重启。如果发生了这种情况，在服务器故障和遗嘱消息被发布之间可能会有一个延迟。</p>
+<h3 id="MQTT消息体-x2F-Payload"><a href="#MQTT消息体-x2F-Payload" class="headerlink" title="MQTT消息体 &#x2F; Payload"></a>MQTT消息体 &#x2F; Payload</h3><p>Payload消息体是MQTT数据包的第三部分，CONNECT、SUBSCRIBE、SUBACK、UNSUBSCRIBE四种类型的消息 有消息体：</p>
+<ul>
+<li><p>CONNECT，消息体内容主要是：客户端的ClientID、订阅的Topic、Message以及用户名和密码</p>
+</li>
+<li><p>SUBSCRIBE，消息体内容是一系列的要订阅的主题以及QoS。</p>
+</li>
+<li><p>SUBACK，消息体内容是服务器对于SUBSCRIBE所申请的主题及QoS进行确认和回复。</p>
+</li>
+<li><p>UNSUBSCRIBE，消息体内容是要订阅的主题。</p>
+</li>
+</ul>
+<h3 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h3><blockquote>
+<p>Topic是消息发布（Pub）者和订阅（Sub）者之间的传输中介。设备可通过Topic实现消息的发送和接收，从而实现服务端与设备端的通信。为方便海量设备基于Topic进行通信，简化授权操作，物联网平台定义了产品Topic类和设备Topic。本文介绍产品和设备Topic的定义、使用和分类。</p>
+</blockquote>
+<p>Topic是设备与物联网平台之间通信的管道，设备可通过Topic实现消息的发送和接收。</p>
+<h2 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h2><p><code>MQTT</code>使用的发布&#x2F;订阅消息模式，它提供了一对多的消息分发机制，从而实现与应用程序的解耦。</p>
+<p>这是一种消息传递模式，<strong>消息不是直接从发送器发送到接收器</strong>（即点对点），而是由<code>MQTT server</code>（或称为 MQTT Broker）分发的。</p>
+<p><img src="/2023/03/15/MQTT/v2-8c518394020ae1ae8a14a8caf85d56fb_720w.webp" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://lybluers.github.io">LyBlue</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://lybluers.github.io/2023/03/15/MQTT/">http://lybluers.github.io/2023/03/15/MQTT/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://lybluers.github.io" target="_blank">Ly's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/15/OPC/"><img class="prev-cover" src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301182335633.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">OPC</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/13/Docker/"><img class="next-cover" src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190928087.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Docker</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/93122188?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">LyBlue</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">25</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/lybluers" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:lybluers@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MQTT"><span class="toc-number">1.</span> <span class="toc-text">MQTT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Qos"><span class="toc-number">1.1.</span> <span class="toc-text">Qos</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MQTT-%E6%95%B0%E6%8D%AE%E5%8C%85%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">MQTT 数据包结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MQTT%E5%9B%BA%E5%AE%9A%E5%A4%B4-x2F-Fixed-header"><span class="toc-number">1.2.1.</span> <span class="toc-text">MQTT固定头 &#x2F; Fixed header</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MQTT%E5%8F%AF%E5%8F%98%E5%A4%B4-x2F-Variable-header"><span class="toc-number">1.2.2.</span> <span class="toc-text">MQTT可变头 &#x2F; Variable header</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E8%BF%94%E5%9B%9E%E7%A0%81-Connect-Return-code"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">连接返回码 Connect Return code</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC-3-1-%E2%80%93%E8%BF%9E%E6%8E%A5%E8%BF%94%E5%9B%9E%E7%A0%81%E7%9A%84%E5%80%BC"><span class="toc-number">1.2.2.1.1.</span> <span class="toc-text">表格 3.1 –连接返回码的值</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5%E6%A0%87%E5%BF%97-Connect-Flags"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">连接标志 Connect Flags</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%97%E5%98%B1%E6%A0%87%E5%BF%97-Will-Flag"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">遗嘱标志 Will Flag</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MQTT%E6%B6%88%E6%81%AF%E4%BD%93-x2F-Payload"><span class="toc-number">1.2.3.</span> <span class="toc-text">MQTT消息体 &#x2F; Payload</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Topic"><span class="toc-number">1.2.4.</span> <span class="toc-text">Topic</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E5%92%8C%E8%AE%A2%E9%98%85"><span class="toc-number">1.3.</span> <span class="toc-text">发布和订阅</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/15/ModBus/" title="ModBus"><img src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190930832.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ModBus"/></a><div class="content"><a class="title" href="/2023/03/15/ModBus/" title="ModBus">ModBus</a><time datetime="2023-03-15T09:25:52.000Z" title="发表于 2023-03-15 17:25:52">2023-03-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/15/OPC/" title="OPC"><img src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301182335633.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OPC"/></a><div class="content"><a class="title" href="/2023/03/15/OPC/" title="OPC">OPC</a><time datetime="2023-03-15T09:16:11.000Z" title="发表于 2023-03-15 17:16:11">2023-03-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/15/MQTT/" title="MQTT"><img src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MQTT"/></a><div class="content"><a class="title" href="/2023/03/15/MQTT/" title="MQTT">MQTT</a><time datetime="2023-03-15T08:18:27.000Z" title="发表于 2023-03-15 16:18:27">2023-03-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/13/Docker/" title="Docker"><img src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190928087.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker"/></a><div class="content"><a class="title" href="/2023/03/13/Docker/" title="Docker">Docker</a><time datetime="2023-03-13T11:32:16.000Z" title="发表于 2023-03-13 19:32:16">2023-03-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/12/yupi-%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83/" title="yupi-用户中心"><img src="https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="yupi-用户中心"/></a><div class="content"><a class="title" href="/2023/03/12/yupi-%E7%94%A8%E6%88%B7%E4%B8%AD%E5%BF%83/" title="yupi-用户中心">yupi-用户中心</a><time datetime="2023-03-12T09:48:04.000Z" title="发表于 2023-03-12 17:48:04">2023-03-12</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://lyblue-pic.oss-cn-qingdao.aliyuncs.com/picture/202301190933435.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By LyBlue</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
